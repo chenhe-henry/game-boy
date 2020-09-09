@@ -9,12 +9,13 @@
       v-for="selection in selections"
       :key="selection.index"
       class="gameRPS__selection"
-      @click="selecteItem(selection.icon)"
+      @click="selecteItem(selection)"
     >{{selection.icon}}</button>
     <div class="round">
-      <div class="round__result">{{selectedItem}}</div>
-      <div class="round__result">{{AISelection}}</div>
+      <div class="round__result">{{selectedItem.icon}}</div>
+      <div class="round__result">{{AISelection.icon}}</div>
     </div>
+    <div>You: {{youWin}} | AI: {{AIWin}}</div>
     <table class="result">
       <thead>
         <tr>
@@ -26,16 +27,21 @@
       <tbody>
         <tr v-for="result in results" :key="result.roundIndex">
           <td>{{result.roundIndex}}</td>
-          <td>{{result.selectedItem}}</td>
-          <td>{{result.AISelection}}</td>
+          <td>{{result.selectedItem.icon}}</td>
+          <td>{{result.AISelection.icon}}</td>
         </tr>
       </tbody>
     </table>
-    <div v-if=" desiredRound<results.length">
+
+    <div v-if=" desiredRounds >1 && desiredRounds<= results.length">
       <h1>Game Over</h1>
+      <h1 v-if="youWin > AIWin">You win</h1>
+      <h1 v-else-if="AIWin > youWin">AI win</h1>
+      <h1 v-else>Draw</h1>
       <button @click="restart">Restart</button>
     </div>
-    <h1 v-else>Enter rounds to start game.</h1>
+    <h1 v-else-if="desiredRounds === 0">Enter rounds to start the game.</h1>
+    <h1 v-else></h1>
   </div>
 </template>
 
@@ -43,31 +49,42 @@
 export default {
   data() {
     return {
-      desiredRounds: null,
+      desiredRounds: 0,
       selections: [
-        { name: "rock", icon: "✊" },
-        { name: "paper", icon: "✋" },
-        { name: "scissor", icon: "✌" }
+        { name: "rock", icon: "✊", beats: "scissor" },
+        { name: "paper", icon: "✋", beats: "rock" },
+        { name: "scissor", icon: "✌", beats: "paper" }
       ],
       selectedItem: "",
       AISelection: "",
-      results: []
+      results: [],
+      youWin: 0,
+      AIWin: 0
     };
   },
   methods: {
     selecteItem(element) {
       this.selectedItem = element;
-      this.AISelection = this.selections[Math.floor(Math.random() * 3)].icon;
+      this.AISelection = this.selections[Math.floor(Math.random() * 3)];
+      if (this.selectedItem.beats === this.AISelection.name) {
+        this.youWin++;
+      } else if (this.AISelection.beats === this.selectedItem.name) {
+        this.AIWin++;
+      }
       const resultObj = {
         roundIndex: this.results.length + 1,
         selectedItem: this.selectedItem,
         AISelection: this.AISelection
       };
       this.results.push(resultObj);
-      console.log(this.results);
     },
     restart() {
       this.results = [];
+      this.desiredRounds = 0;
+      this.selectedItem = "";
+      this.AISelection = "";
+      this.youWin = 0;
+      this.AIWin = 0;
     }
   }
 };
