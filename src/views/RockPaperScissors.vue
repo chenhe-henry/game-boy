@@ -1,12 +1,19 @@
 <template>
   <div class="gameRPS">
+    <div class="gameRPS__theme">
+      <label for="theme" class="gameRPS__theme-label">Theme:</label>
+      <select v-model="theme" id="theme" name="theme" class="gameRPS__theme-selection">
+        <option value="0">✊✋✌</option>
+        <option value="1">🐯🎋🐛</option>
+      </select>
+    </div>
     <div class="gameRPS__rounds">
       <label for="rounds" class="gameRPS__rounds-label">Rounds:</label>
       <input v-model="desiredRounds" id="rounds" name="rounds" type="number" min="0" />
     </div>
     <button
       :disabled=" desiredRounds<=results.length"
-      v-for="selection in selections"
+      v-for="selection in selectionBase[theme].selections"
       :key="selection.index"
       class="gameRPS__selection"
       @click="selecteItem(selection)"
@@ -50,10 +57,22 @@ export default {
   data() {
     return {
       desiredRounds: 0,
-      selections: [
-        { name: "rock", icon: "✊", beats: "scissor" },
-        { name: "paper", icon: "✋", beats: "rock" },
-        { name: "scissor", icon: "✌", beats: "paper" }
+      theme: 0,
+      selectionBase: [
+        {
+          selections: [
+            { name: "rock", icon: "✊", beats: "scissor" },
+            { name: "paper", icon: "✋", beats: "rock" },
+            { name: "scissor", icon: "✌", beats: "paper" }
+          ]
+        },
+        {
+          selections: [
+            { name: "tiger", icon: "🐯", beats: "bug" },
+            { name: "stick", icon: "🎋", beats: "tiger" },
+            { name: "bug", icon: "🐛", beats: "stick" }
+          ]
+        }
       ],
       selectedItem: "",
       AISelection: "",
@@ -65,7 +84,10 @@ export default {
   methods: {
     selecteItem(element) {
       this.selectedItem = element;
-      this.AISelection = this.selections[Math.floor(Math.random() * 3)];
+      this.AISelection =
+        this.theme === 0
+          ? this.selectionBase[0].selections[Math.floor(Math.random() * 3)]
+          : this.selectionBase[1].selections[Math.floor(Math.random() * 3)];
       if (this.selectedItem.beats === this.AISelection.name) {
         this.youWin++;
       } else if (this.AISelection.beats === this.selectedItem.name) {
@@ -92,6 +114,15 @@ export default {
 
 <style lang="scss" scoped>
 .gameRPS {
+  &__theme {
+    font-size: 2rem;
+    &-label {
+      margin-right: 1vw;
+    }
+    &-selection {
+      font-size: 2rem;
+    }
+  }
   &__rounds {
     font-weight: bold;
     &-label {
