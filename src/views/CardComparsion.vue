@@ -29,10 +29,11 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
   border: 1px solid black;
+  border-radius: 10px;
+  background-color: white;
+  width: 50%;
+  margin: 10px auto;
 }
 .btn__block {
   display: grid;

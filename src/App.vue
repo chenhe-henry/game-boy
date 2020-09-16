@@ -2,7 +2,8 @@
   <div id="app" :style="{ backgroundColor: f }">
     <div id="nav">
       <router-link to="/">Home</router-link>
-      <router-link to="/games">Games</router-link>
+      <router-link to="/rockpaperscissors">RockPaperScissors</router-link
+      ><router-link to="/cardcomparsion">CardComparsion</router-link>
     </div>
     <router-view class="views" />
   </div>
@@ -34,8 +35,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100vh;
   transition: all 5s;
+  height: 100vh;
 }
 .views {
 }

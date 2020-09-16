@@ -155,6 +155,12 @@ export default {
 
 <style lang="scss" scoped>
 .gameRPS {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: white;
+  width: 50%;
+  height: 90vh;
+  margin: 10px auto;
   &__theme {
     font-size: 2rem;
     &-label {
