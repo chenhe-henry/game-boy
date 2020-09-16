@@ -40,6 +40,7 @@ export default {
     padding: 20px;
     width: 50%;
     margin: 0 auto;
+    background-color: white;
     box-shadow: 1.5em 1em 3em -0.5em;
     &:hover {
       transform: translateY(-5px);
