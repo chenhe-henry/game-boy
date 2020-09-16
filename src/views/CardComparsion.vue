@@ -21,6 +21,10 @@ export default {
         { name: 2, value: 2 },
         { name: 3, value: 3 },
         { name: 4, value: 4 },
+        { name: 1, value: 1 },
+        { name: 2, value: 2 },
+        { name: 3, value: 3 },
+        { name: 4, value: 4 },
       ],
     };
   },
@@ -33,6 +37,7 @@ export default {
   border-radius: 10px;
   background-color: white;
   width: 50%;
+  height: 88vh;
   margin: 10px auto;
   box-shadow: 1.5em 1em 1em -0.5em;
 }
@@ -44,7 +49,7 @@ export default {
 }
 .card {
   border: 1px solid black;
-  height: 25vh;
+  height: 24vh;
   width: 10vw;
   margin: 20px;
   text-align: center;

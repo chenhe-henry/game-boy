@@ -31,6 +31,7 @@ export default {
 .games__block {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+
   &-link {
     color: black;
     text-decoration: none;
@@ -39,6 +40,9 @@ export default {
     border-radius: 5px;
     padding: 20px;
     width: 50%;
+    height: 25vh;
+    justify-content: center;
+    align-items: center;
     margin: 0 auto;
     background-color: white;
     box-shadow: 1.5em 1em 3em -0.5em;
