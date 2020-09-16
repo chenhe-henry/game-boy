@@ -1,13 +1,16 @@
 <template>
   <div class="about">
-    <h1>This is an game station</h1>
-    <div class="games__block">
-      <router-link
-        v-for="game in games"
-        :key="game.name"
-        :to="game.url"
-        class="games__block-link"
-      >{{game.name}}</router-link>
+    <div>
+      <h1>Current Games</h1>
+      <div class="games__block">
+        <router-link
+          v-for="game in games"
+          :key="game.name"
+          :to="game.url"
+          class="games__block-link"
+          >{{ game.name }}</router-link
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -16,10 +19,11 @@ export default {
   data() {
     return {
       games: [
-        { name: "Rock, Paper, Scissors", url: "/games/rockpaperscissors" }
-      ]
+        { name: "Rock, Paper, Scissors", url: "/games/rockpaperscissors" },
+        { name: "Card Comparsion", url: "/games/cardcomparsion" },
+      ],
     };
-  }
+  },
 };
 </script>
 
@@ -31,6 +35,19 @@ export default {
     color: black;
     text-decoration: none;
     font-weight: bold;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    width: 50%;
+    margin: 0 auto;
+    box-shadow: 1.5em 1em 3em -0.5em;
+    &:hover {
+      transform: translateY(-5px);
+    }
+    &:focus,
+    &:active {
+      transform: translateY(0);
+    }
   }
 }
 </style>

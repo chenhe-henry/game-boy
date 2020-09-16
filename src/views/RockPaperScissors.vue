@@ -1,28 +1,68 @@
 <template>
   <div class="gameRPS">
+    <div v-if="desiredRounds >= 1 && desiredRounds <= results.length">
+      <h1>
+        Game Over,
+        <span v-if="youWin > AIWin">You win !</span>
+        <span v-else-if="AIWin > youWin">AI win !</span>
+        <span v-else>Draw !</span>
+      </h1>
+    </div>
+    <h1 v-else-if="desiredRounds === 0">Enter rounds to start the game.</h1>
+    <h1 v-else>Game is on</h1>
     <div class="gameRPS__theme">
       <label for="theme" class="gameRPS__theme-label">Theme:</label>
-      <select v-model="theme" id="theme" name="theme" class="gameRPS__theme-selection">
+      <select
+        v-model="theme"
+        id="theme"
+        name="theme"
+        class="gameRPS__theme-selection"
+        :disabled="isGameStarted"
+      >
         <option value="0">✊✋✌</option>
         <option value="1">🐯🎋🐛</option>
       </select>
     </div>
     <div class="gameRPS__rounds">
       <label for="rounds" class="gameRPS__rounds-label">Rounds:</label>
-      <input v-model="desiredRounds" id="rounds" name="rounds" type="number" min="0" />
+      <input
+        v-model="desiredRounds"
+        id="rounds"
+        name="rounds"
+        type="number"
+        min="0"
+        :disabled="gameStarted"
+      />
+    </div>
+    <br />
+    <div>
+      <button
+        v-if="isGameStarted && desiredRounds > 0"
+        @click="gameStarted = true"
+        :disabled="desiredRounds > 0 ? gameStarted : true"
+        class="gameRPS__button"
+      >
+        Start
+      </button>
+      <button v-else-if="desiredRounds === 0" disabled class="gameRPS__button">
+        &uarr;
+      </button>
+      <button v-else @click="restart" class="gameRPS__button">Restart</button>
     </div>
     <button
-      :disabled=" desiredRounds<=results.length"
+      :disabled="!gameStarted"
       v-for="selection in selectionBase[theme].selections"
       :key="selection.index"
       class="gameRPS__selection"
       @click="selecteItem(selection)"
-    >{{selection.icon}}</button>
+    >
+      {{ selection.icon }}
+    </button>
     <div class="round">
-      <div class="round__result">{{selectedItem.icon}}</div>
-      <div class="round__result">{{AISelection.icon}}</div>
+      <div class="round__result">{{ selectedItem.icon }}</div>
+      <div class="round__result">{{ AISelection.icon }}</div>
     </div>
-    <div>You: {{youWin}} | AI: {{AIWin}}</div>
+    <div class="final__result">You: {{ youWin }} | AI: {{ AIWin }}</div>
     <table class="result">
       <thead>
         <tr>
@@ -33,22 +73,12 @@
       </thead>
       <tbody>
         <tr v-for="result in results" :key="result.roundIndex">
-          <td>{{result.roundIndex}}</td>
-          <td>{{result.selectedItem.icon}}</td>
-          <td>{{result.AISelection.icon}}</td>
+          <td>{{ result.roundIndex }}</td>
+          <td>{{ result.selectedItem.icon }}</td>
+          <td>{{ result.AISelection.icon }}</td>
         </tr>
       </tbody>
     </table>
-
-    <div v-if=" desiredRounds >1 && desiredRounds<= results.length">
-      <h1>Game Over</h1>
-      <h1 v-if="youWin > AIWin">You win</h1>
-      <h1 v-else-if="AIWin > youWin">AI win</h1>
-      <h1 v-else>Draw</h1>
-      <button @click="restart">Restart</button>
-    </div>
-    <h1 v-else-if="desiredRounds === 0">Enter rounds to start the game.</h1>
-    <h1 v-else></h1>
   </div>
 </template>
 
@@ -56,6 +86,7 @@
 export default {
   data() {
     return {
+      gameStarted: false,
       desiredRounds: 0,
       theme: 0,
       selectionBase: [
@@ -63,23 +94,32 @@ export default {
           selections: [
             { name: "rock", icon: "✊", beats: "scissor" },
             { name: "paper", icon: "✋", beats: "rock" },
-            { name: "scissor", icon: "✌", beats: "paper" }
-          ]
+            { name: "scissor", icon: "✌", beats: "paper" },
+          ],
         },
         {
           selections: [
             { name: "tiger", icon: "🐯", beats: "bug" },
             { name: "stick", icon: "🎋", beats: "tiger" },
-            { name: "bug", icon: "🐛", beats: "stick" }
-          ]
-        }
+            { name: "bug", icon: "🐛", beats: "stick" },
+          ],
+        },
       ],
       selectedItem: "",
       AISelection: "",
       results: [],
       youWin: 0,
-      AIWin: 0
+      AIWin: 0,
     };
+  },
+  computed: {
+    isGameStarted() {
+      if (this.desiredRounds === 0) {
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
   methods: {
     selecteItem(element) {
@@ -96,7 +136,7 @@ export default {
       const resultObj = {
         roundIndex: this.results.length + 1,
         selectedItem: this.selectedItem,
-        AISelection: this.AISelection
+        AISelection: this.AISelection,
       };
       this.results.push(resultObj);
     },
@@ -107,8 +147,9 @@ export default {
       this.AISelection = "";
       this.youWin = 0;
       this.AIWin = 0;
-    }
-  }
+      this.gameStarted = false;
+    },
+  },
 };
 </script>
 
@@ -128,6 +169,16 @@ export default {
     &-label {
       margin-right: 1vw;
     }
+  }
+  &__button {
+    color: black;
+    font-weight: bold;
+    font-size: 1.5rem;
+    background-color: aqua;
+    border-radius: 5px;
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: all 0.2s;
   }
   &__selection {
     margin: 0 1vw;
@@ -153,6 +204,9 @@ export default {
     margin: 0 2vw;
     font-size: 3rem;
   }
+}
+.final__result {
+  font-size: 2rem;
 }
 .result {
   margin: 0 auto;

@@ -24,6 +24,11 @@ const routes = [
     name: "RockPaperScissors",
     component: () => import("../views/RockPaperScissors.vue"),
   },
+  {
+    path: "/games/cardcomparsion",
+    name: "CardComparsion",
+    component: () => import("../views/CardComparsion.vue"),
+  },
 ];
 
 const router = new VueRouter({

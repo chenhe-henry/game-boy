@@ -1,7 +1,5 @@
 <template>
-  <div class="home">
-    <h1>This is Home Page</h1>
-  </div>
+  <div class="home"><h1>Welcome to our game station!</h1></div>
 </template>
 
 <script>
@@ -9,6 +7,11 @@
 
 export default {
   name: "Home",
-  components: {}
+  components: {},
+  data() {
+    return {};
+  },
 };
 </script>
+
+<style lang="scss" scoped></style>
