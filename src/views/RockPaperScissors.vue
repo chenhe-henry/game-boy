@@ -159,8 +159,9 @@ export default {
   border-radius: 10px;
   background-color: white;
   width: 50%;
-  height: 90vh;
+  height: 88vh;
   margin: 10px auto;
+  box-shadow: 1.5em 1em 1em -0.5em;
   &__theme {
     font-size: 2rem;
     &-label {

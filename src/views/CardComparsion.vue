@@ -34,6 +34,7 @@ export default {
   background-color: white;
   width: 50%;
   margin: 10px auto;
+  box-shadow: 1.5em 1em 1em -0.5em;
 }
 .btn__block {
   display: grid;
