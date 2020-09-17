@@ -2,8 +2,8 @@
   <div id="app" :style="{ backgroundColor: f }">
     <div id="nav">
       <router-link to="/">Home</router-link>
-      <router-link to="/rockpaperscissors">RockPaperScissors</router-link
-      ><router-link to="/cardmatching">CardComparsion</router-link>
+      <router-link to="/rockpaperscissors">Rock Paper Scissors</router-link
+      ><router-link to="/cardmatching">Card Matching</router-link>
     </div>
     <router-view class="views" />
   </div>
