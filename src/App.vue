@@ -3,7 +3,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/rockpaperscissors">RockPaperScissors</router-link
-      ><router-link to="/cardcomparsion">CardComparsion</router-link>
+      ><router-link to="/cardmatching">CardComparsion</router-link>
     </div>
     <router-view class="views" />
   </div>
@@ -12,7 +12,6 @@
 // @ is an alias to /src
 
 export default {
-  name: "Home",
   components: {},
   data() {
     return {

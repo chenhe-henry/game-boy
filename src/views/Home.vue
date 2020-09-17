@@ -20,7 +20,7 @@ export default {
     return {
       games: [
         { name: "Rock, Paper, Scissors", url: "/rockpaperscissors" },
-        { name: "Card Comparsion", url: "/cardcomparsion" },
+        { name: "Card Matching", url: "/cardmatching" },
       ],
     };
   },

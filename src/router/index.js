@@ -16,9 +16,9 @@ const routes = [
     component: () => import("../views/RockPaperScissors.vue"),
   },
   {
-    path: "/cardcomparsion",
-    name: "CardComparsion",
-    component: () => import("../views/CardComparsion.vue"),
+    path: "/cardmatching",
+    name: "CardMatching",
+    component: () => import("../views/CardMatching.vue"),
   },
 ];
 
