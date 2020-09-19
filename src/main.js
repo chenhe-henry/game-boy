@@ -5,6 +5,7 @@ import store from "./store";
 import upperFirst from "lodash/upperFirst";
 import camelCase from "lodash/camelCase";
 
+//BaseComponents
 const requireComponent = require.context(
   // The relative path of the components folder
   "./components",
@@ -13,7 +14,6 @@ const requireComponent = require.context(
   // The regular expression used to match base component filenames
   /Base[A-Z]\w+\.(vue|js)$/
 );
-
 requireComponent.keys().forEach((fileName) => {
   // Get component config
   const componentConfig = requireComponent(fileName);

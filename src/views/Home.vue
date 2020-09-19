@@ -30,17 +30,16 @@ export default {
 <style lang="scss" scoped>
 .games__block {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-
+  grid-template-columns: repeat(2, 1fr);
   &-link {
     color: black;
     text-decoration: none;
     font-weight: bold;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 20px;
-    width: 50%;
-    height: 25vh;
+    width: 80%;
+    height: 60vh;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
