@@ -20,6 +20,11 @@ const routes = [
     name: "CardMatching",
     component: () => import("../views/CardMatching.vue"),
   },
+  {
+    path: "/community",
+    name: "Community",
+    component: () => import("../views/Community.vue"),
+  },
 ];
 
 const router = new VueRouter({

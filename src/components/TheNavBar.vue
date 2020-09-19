@@ -3,6 +3,7 @@
     <router-link to="/">Home</router-link>
     <router-link to="/rockpaperscissors">Rock Paper Scissors</router-link>
     <router-link to="/cardmatching">Card Matching</router-link>
+    <router-link to="/community">Community</router-link>
   </div>
 </template>
 
@@ -14,7 +15,7 @@ export default {};
 .navbar {
   background: black;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   a {
     font-weight: bold;
     font-size: 2rem;

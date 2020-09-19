@@ -89,8 +89,17 @@ export default new Vuex.Store({
         content: `The game continues in this fashion until all the cards are played.`,
       },
     ],
+    feedbacks: [
+      { name: "chen", feedback: "nice one", date: "2020-09-15" },
+      {
+        name: "chen",
+        feedback: "need to add more games",
+        date: "2020-09-10",
+      },
+    ],
   },
   mutations: {},
   actions: {},
+  getters: {},
   modules: {},
 });
