@@ -1,7 +1,20 @@
 <template>
   <div class="about">
     <div>
-      <h1>Welcome to the game station!</h1>
+      <div v-if="user">
+        <h1>
+          Welcome to the game station, {{ user.displayName }},
+          <a href="#" role="button" @click="$emit('logout')">Logout</a>
+        </h1>
+      </div>
+      <div v-else>
+        <h1>
+          Signup today, and join our community <a href="/login">Login</a>/<a
+            href="/register"
+            >Register</a
+          >
+        </h1>
+      </div>
       <div class="games__block">
         <router-link
           v-for="game in games"
@@ -16,6 +29,7 @@
 </template>
 <script>
 export default {
+  props: ["user"],
   data() {
     return {
       games: [

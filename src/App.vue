@@ -1,18 +1,43 @@
 <template>
   <div id="app" :style="{ backgroundColor: f }">
-    <TheNavBar />
-    <router-view class="views" />
+    <TheNavBar :user="user" @logout="logout" />
+    <router-view
+      class="views"
+      :user="user"
+      :feedbacks="feedbacks"
+      @logout="logout"
+      @addFeedback="addFeedback"
+    />
   </div>
 </template>
 <script>
 // @ is an alias to /src
+import Firebase from "firebase";
 import TheNavBar from "@/components/TheNavBar.vue";
+import db from "./db.js";
 export default {
   components: { TheNavBar },
   data() {
-    return {
-      f: "rgba(66,185,131,0.5)",
-    };
+    return { user: null, feedbacks: [], f: "rgba(66,185,131,0.5)" };
+  },
+  methods: {
+    logout() {
+      Firebase.auth()
+        .signOut()
+        .then(() => {
+          this.user = null;
+          this.$router.push("/");
+        });
+    },
+    addFeedback(payload) {
+      db.collection("feedbacks")
+        .doc("allFeedbacks")
+        .collection("feedbacks")
+        .add({
+          details: payload,
+          createdAt: Firebase.firestore.FieldValue.serverTimestamp(),
+        });
+    },
   },
   created() {
     setInterval(() => {
@@ -20,6 +45,36 @@ export default {
         Math.random() * 256
       )},${Math.floor(Math.random() * 256)},0.5)`;
     }, 5000);
+  },
+  mounted() {
+    db.collection("feedbacks")
+      .doc("allFeedbacks")
+      .collection("feedbacks")
+      .onSnapshot((snapshot) => {
+        snapshot.forEach((doc) => {
+          this.feedbacks.push({
+            id: doc.id,
+            feedback: doc.data().details,
+            createdAt: new Date(
+              doc.data().createdAt.seconds * 1000
+            ).toLocaleString(),
+          });
+          console.log(this.feedbacks);
+        });
+      });
+    Firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.user = user;
+      }
+    });
+    // db.collection("users")
+    //   .doc("ipOIGPLBtrJVKAm5o2uc")
+    //   .get()
+    //   .then(() => {
+    //     //pass snapshot
+    //     // this.user = snapshot.data().name;
+    //     this.user = null;
+    //   });
   },
 };
 </script>

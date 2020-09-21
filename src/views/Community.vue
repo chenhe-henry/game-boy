@@ -1,38 +1,38 @@
 <template>
   <div>
-    <button
-      class="tab"
-      :class="{ activeTab: selectedTab === tab }"
-      v-for="(tab, index) in tabs"
-      :key="index"
-      @click="selectedTab = tab"
-    >
-      {{ tab }}
-    </button>
+    <!-- Feedbacks/Write a feedback tabs with user login condition -->
+    <div>
+      <div v-if="user">
+        <button
+          class="tab"
+          :class="{ activeTab: selectedTab === tab }"
+          v-for="(tab, index) in tabs"
+          :key="index"
+          @click="selectedTab = tab"
+        >
+          {{ tab }}
+        </button>
+      </div>
+      <div v-if="!user"><button class="tab activeTab">Feedbacks</button></div>
+    </div>
+    <!-- Feebacks tab -->
     <div v-show="selectedTab === `Feedbacks`" class="feedbacks">
       <div
         v-for="(feedback, index) in feedbacks"
         :key="index"
         class="feedbacks__feedback"
       >
-        <div>From: {{ feedback.name }}</div>
-        <div>Feedback: {{ feedback.feedback }}</div>
-        <div>Date: {{ feedback.date }}</div>
+        <div>From: {{ feedback.feedback.name }}</div>
+        <div>Feedback: {{ feedback.feedback.feedback }}</div>
+        <div>Date: {{ feedback.createdAt }}</div>
       </div>
     </div>
+    <!-- Write a new feedback tab -->
     <div v-show="selectedTab === `Write a feedback`">
       <form @submit.prevent="onSubmit">
         <div>
-          <label for="name">Name</label>
-          <input type="text" id="name" v-model="name" />
-        </div>
-        <div>
           <label for="feedback">Feedback</label>
           <textarea id="feedback" v-model="feedback" />
-        </div>
-        <div>
-          <label for="date">Date</label>
-          <input type="date" id="date" v-model="date" />
         </div>
         <div><input type="submit" value="Submit" /></div>
       </form>
@@ -44,39 +44,36 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
+  props: ["user", "feedbacks"], // get 'user','feedbacks' as props from firebase database
   data() {
     return {
-      name: null,
+      name: "",
       feedback: null,
-      date: null,
       tabs: ["Feedbacks", "Write a feedback"],
       selectedTab: "Feedbacks",
       errors: [],
     };
   },
-  computed: {
-    ...mapState(["feedbacks"]),
-  },
+
   methods: {
     onSubmit() {
       this.errors = [];
-      if (this.name && this.feedback && this.date) {
-        let newFeedBack = {
-          name: this.name,
-          feedback: this.feedback,
-          date: this.date,
-        };
-        this.feedbacks.push(newFeedBack);
-        this.selectedTab = "Feedbacks";
-        this.name = null;
-        this.feedback = null;
-        this.date = null;
-      } else {
-        if (!this.name) this.errors.push(`need name`);
-        if (!this.feedback) this.errors.push(`need feedback`);
-        if (!this.date) this.errors.push(`need date`);
+      if (this.user) {
+        this.name = this.user.displayName;
+        if (this.name && this.feedback) {
+          let newFeedBack = {
+            name: this.name,
+            feedback: this.feedback,
+          };
+          this.$emit("addFeedback", newFeedBack);
+          this.selectedTab = "Write a feedback";
+          this.name = null;
+          this.feedback = null;
+        } else {
+          if (!this.name) this.errors.push(`need name`);
+          if (!this.feedback) this.errors.push(`need feedback`);
+        }
       }
     },
   },
