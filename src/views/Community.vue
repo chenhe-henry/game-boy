@@ -67,7 +67,7 @@ export default {
             feedback: this.feedback,
           };
           this.$emit("addFeedback", newFeedBack);
-          this.selectedTab = "Write a feedback";
+          this.selectedTab = "Feedbacks";
           this.name = null;
           this.feedback = null;
         } else {

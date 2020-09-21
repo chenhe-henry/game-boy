@@ -50,16 +50,25 @@ export default {
     db.collection("feedbacks")
       .doc("allFeedbacks")
       .collection("feedbacks")
+      // .limit(6)
       .onSnapshot((snapshot) => {
+        const snapData = [];
         snapshot.forEach((doc) => {
-          this.feedbacks.push({
+          snapData.push({
             id: doc.id,
             feedback: doc.data().details,
             createdAt: new Date(
               doc.data().createdAt.seconds * 1000
             ).toLocaleString(),
           });
-          console.log(this.feedbacks);
+          // get the data sorted with createdAt
+          this.feedbacks = snapData.sort((a, b) => {
+            if (a.createdAt < b.createdAt) {
+              return 1;
+            } else {
+              return -1;
+            }
+          });
         });
       });
     Firebase.auth().onAuthStateChanged((user) => {
