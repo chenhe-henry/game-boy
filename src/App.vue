@@ -7,6 +7,7 @@
       :feedbacks="feedbacks"
       @logout="logout"
       @addFeedback="addFeedback"
+      @delete-feedback="deleteFeedback"
     />
   </div>
 </template>
@@ -37,6 +38,14 @@ export default {
           details: payload,
           createdAt: Firebase.firestore.FieldValue.serverTimestamp(),
         });
+    },
+    deleteFeedback(payload) {
+      db.collection("feedbacks")
+        .doc("allFeedbacks")
+        .collection("feedbacks")
+        .doc(payload)
+        .delete();
+      console.log(`detele ${payload}`);
     },
   },
   created() {
@@ -76,14 +85,6 @@ export default {
         this.user = user;
       }
     });
-    // db.collection("users")
-    //   .doc("ipOIGPLBtrJVKAm5o2uc")
-    //   .get()
-    //   .then(() => {
-    //     //pass snapshot
-    //     // this.user = snapshot.data().name;
-    //     this.user = null;
-    //   });
   },
 };
 </script>

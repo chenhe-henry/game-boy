@@ -18,13 +18,19 @@
     <!-- Feebacks tab -->
     <div v-show="selectedTab === `Feedbacks`" class="feedbacks">
       <div
-        v-for="(feedback, index) in feedbacks"
-        :key="index"
+        v-for="feedback in feedbacks"
+        :key="feedback.id"
         class="feedbacks__feedback"
       >
         <div>From: {{ feedback.feedback.name }}</div>
         <div>Feedback: {{ feedback.feedback.feedback }}</div>
         <div>Date: {{ feedback.createdAt }}</div>
+        <button
+          v-show="user && user.email === feedback.feedback.email"
+          @click="$emit('delete-feedback', feedback.id)"
+        >
+          Delete
+        </button>
       </div>
     </div>
     <!-- Write a new feedback tab -->
@@ -49,6 +55,7 @@ export default {
   data() {
     return {
       name: "",
+      email: "",
       feedback: null,
       tabs: ["Feedbacks", "Write a feedback"],
       selectedTab: "Feedbacks",
@@ -61,17 +68,17 @@ export default {
       this.errors = [];
       if (this.user) {
         this.name = this.user.displayName;
+        this.email = this.user.email;
         if (this.name && this.feedback) {
           let newFeedBack = {
             name: this.name,
+            email: this.email,
             feedback: this.feedback,
           };
           this.$emit("addFeedback", newFeedBack);
           this.selectedTab = "Feedbacks";
-          this.name = null;
           this.feedback = null;
         } else {
-          if (!this.name) this.errors.push(`need name`);
           if (!this.feedback) this.errors.push(`need feedback`);
         }
       }
