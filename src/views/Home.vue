@@ -21,8 +21,10 @@
           :key="game.name"
           :to="game.url"
           class="games__block-link"
-          >{{ game.name }}</router-link
         >
+          <div>{{ game.name }}</div>
+          <div><img :src="getCardsUrl(game.pic)" :alt="game.name" /></div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -33,10 +35,19 @@ export default {
   data() {
     return {
       games: [
-        { name: "Rock, Paper, Scissors", url: "/rockpaperscissors" },
-        { name: "Card Matching", url: "/cardmatching" },
+        {
+          name: "Rock, Paper, Scissors",
+          url: "/rockpaperscissors",
+          pic: "rockpaperscissors",
+        },
+        { name: "Card Matching", url: "/cardmatching", pic: "cardmatching" },
       ],
     };
+  },
+  methods: {
+    getCardsUrl(pic) {
+      return require(`../assets/${pic}.png`);
+    },
   },
 };
 </script>
@@ -46,6 +57,8 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   &-link {
+    display: grid;
+    grid-template-rows: 1fr 3fr;
     color: black;
     text-decoration: none;
     font-weight: bold;
@@ -59,6 +72,9 @@ export default {
     margin: 0 auto;
     background-color: white;
     box-shadow: 1.5em 1em 3em -0.5em;
+    img {
+      width: 80%;
+    }
     &:hover {
       transform: translateY(-5px);
     }
