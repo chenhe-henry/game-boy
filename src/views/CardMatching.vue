@@ -13,14 +13,19 @@
         </div>
       </div>
     </div>
-    <BaseIndicator>Nma</BaseIndicator>
-    <BaseInstruction
+    <BaseIndicator>
+      <h1 slot="first">Game</h1>
+      <h1 slot="second">is</h1>
+      <h1 slot="third">coming</h1>
+      <h1 slot="fourth">soon</h1>
+    </BaseIndicator>
+    <!--  <BaseInstruction
       ><ol>
         <li v-for="instruction in gameInstruction" :key="instruction.ruleNo">
           {{ instruction.content }}
         </li>
       </ol></BaseInstruction
-    >
+    > -->
   </div>
 </template>
 
@@ -44,7 +49,8 @@ export default {
       console.log(this.selected);
       if (
         this.selected === 2 &&
-        this.matchedCards[0].name === this.matchedCards[1].name
+        this.matchedCards[0].name === this.matchedCards[1].name &&
+        this.matchedCards[0].id !== this.matchedCards[1].id
       ) {
         alert(`match`);
         this.selected = 0;
@@ -52,7 +58,8 @@ export default {
       }
       if (
         this.selected === 2 &&
-        this.matchedCards[0].name !== this.matchedCards[1].name
+        this.matchedCards[0].name !== this.matchedCards[1].name &&
+        this.matchedCards[0].id !== this.matchedCards[1].id
       ) {
         alert(`not match`);
         this.selected = 0;
