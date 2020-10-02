@@ -9,6 +9,10 @@
       </h1>
     </div>
     <h1 v-else-if="desiredRounds === 0">Enter rounds to start the game.</h1>
+    <h1 v-else-if="desiredRounds > defaultMaximunRounds">
+      The maximum rounds is 5, re-enter the rounds to start.
+    </h1>
+    <h1 v-else-if="desiredRounds !== 0 && !gameStarted">Ready to go</h1>
     <h1 v-else>Game is on</h1>
     <div class="gameRPS__theme">
       <label for="theme" class="gameRPS__theme-label">Theme:</label>
@@ -31,6 +35,7 @@
         name="rounds"
         type="number"
         min="0"
+        :max="defaultMaximunRounds"
         :disabled="gameStarted"
       />
     </div>
@@ -47,10 +52,13 @@
       <button v-else-if="desiredRounds === 0" disabled class="gameRPS__button">
         &uarr;
       </button>
-      <button v-else @click="restart" class="gameRPS__button">Restart</button>
+      <button v-else @click="restart" class="gameRPS__button">
+        Restart
+      </button>
     </div>
+
     <button
-      :disabled="!gameStarted"
+      :disabled="!gameStarted || results.length >= desiredRounds"
       v-for="selection in selectionBase[theme].selections"
       :key="selection.index"
       class="gameRPS__selection"
@@ -88,6 +96,7 @@ export default {
     return {
       gameStarted: false,
       desiredRounds: 0,
+      defaultMaximunRounds: 5,
       theme: 0,
       selectionBase: [
         {
@@ -114,7 +123,10 @@ export default {
   },
   computed: {
     isGameStarted() {
-      if (this.desiredRounds === 0) {
+      if (
+        this.desiredRounds === 0 ||
+        this.desiredRounds > this.defaultMaximunRounds
+      ) {
         return false;
       } else {
         return true;
