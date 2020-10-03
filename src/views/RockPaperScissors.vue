@@ -42,7 +42,9 @@
     <br />
     <div>
       <button
-        v-if="isGameStarted && desiredRounds > 0"
+        v-if="
+          isGameStarted && desiredRounds > 0 && desiredRounds > results.length
+        "
         @click="gameStarted = true"
         :disabled="desiredRounds > 0 ? gameStarted : true"
         class="gameRPS__button"
@@ -167,11 +169,15 @@ export default {
 
 <style lang="scss" scoped>
 .gameRPS {
+  height: 100%;
+  @media (min-width: 1024px) {
+    height: 88vh;
+  }
   border: 1px solid black;
   border-radius: 10px;
   background-color: white;
   width: 50%;
-  height: 88vh;
+
   margin: 10px auto;
   box-shadow: 1.5em 1em 1em -0.5em;
   &__theme {

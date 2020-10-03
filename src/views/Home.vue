@@ -55,25 +55,63 @@ export default {
 <style lang="scss" scoped>
 .games__block {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+
+  @media (min-width: 1024px) {
+    grid-template-rows: none;
+    grid-template-columns: repeat(2, 1fr);
+  }
   &-link {
-    display: grid;
-    grid-template-rows: 1fr 3fr;
+    // display: grid;
+    // grid-template-rows: 1fr 3fr;
+    background-size: cover;
+
     color: black;
     text-decoration: none;
     font-weight: bold;
     border: 1px solid black;
     border-radius: 15px;
-    padding: 20px;
-    width: 80%;
-    height: 60vh;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
     background-color: white;
     box-shadow: 1.5em 1em 3em -0.5em;
-    img {
+
+    margin: 20px auto;
+    height: 25vh;
+    width: 70%;
+    padding: 5px;
+    @media (min-width: 425px) {
+      height: 33vh;
+      width: 70%;
+    }
+    @media (min-width: 768px) {
+      height: 40vh;
       width: 80%;
+    }
+    @media (min-width: 1024px) {
+      margin: 20px auto;
+      height: 70vh;
+      width: 90%;
+    }
+    @media (min-width: 1440px) {
+      margin: 20px auto;
+      height: 90vh;
+      width: 90%;
+    }
+    img {
+      width: 75%;
+      @media (min-width: 425px) {
+        width: 90%;
+      }
+      @media (min-width: 768px) {
+        width: 50%;
+      }
+      @media (min-width: 1024px) {
+        width: 85%;
+      }
+      @media (min-width: 1024px) {
+        width: 85%;
+      }
     }
     &:hover {
       transform: translateY(-5px);
