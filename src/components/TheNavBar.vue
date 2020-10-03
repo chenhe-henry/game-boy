@@ -23,11 +23,19 @@ export default { props: ["user"] };
 .navbar {
   background: black;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  @media (min-width: 1024px) {
+    grid-template-rows: none;
+    grid-template-columns: repeat(6, 1fr);
+  }
   a {
-    font-weight: bold;
     font-size: 1.8rem;
     padding: 10px;
+    @media (min-width: 1024px) {
+      font-size: 1.8rem;
+      padding: 10px;
+    }
+    font-weight: bold;
     color: white;
     text-decoration: none;
     &.router-link-exact-active {
