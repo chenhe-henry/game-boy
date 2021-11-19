@@ -96,9 +96,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   transition: all 5s;
-  margin: 0;
-  padding: 0;
   width: 100%;
   min-height: 100vh;
+}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
 }
 </style>

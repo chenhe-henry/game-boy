@@ -41,6 +41,11 @@ const routes = [
     component: () => import("../views/Dashboard.vue"),
   },
   {
+    path: "/monsterslayer",
+    name: "MonsterSlayer",
+    component: () => import("../views/MonsterSlayer.vue"),
+  },
+  {
     path: "*",
     redirect: "/",
   },

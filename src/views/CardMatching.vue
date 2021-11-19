@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     getCardsUrl(pic) {
-      return require(`../assets/cards/${pic}.png`);
+      return require(`../assets/cardMatching/${pic}.png`);
     },
     selectCard(id) {
       this.matchedCards.push(this.cardInfo[id]);
@@ -123,6 +123,11 @@ export default {
     height: 90%;
     width: 90%;
     margin: 0 auto;
+  }
+  &:hover {
+    transform: rotateY(180deg);
+
+    perspective: 1000px;
   }
 }
 </style>
