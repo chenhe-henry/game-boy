@@ -36,7 +36,7 @@ export default {
     return {
       matchedCards: [],
       randomCards: [],
-      selected: 0,
+      selected: 1,
     };
   },
   methods: {
@@ -44,35 +44,35 @@ export default {
       return require(`../assets/cardMatching/${pic}.png`);
     },
     selectCard(id) {
-      this.matchedCards.push(this.cardInfo[id]);
+      let selectedTwoElement = this.selected === 2;
+      let cardPool = this.matchedCards
+      cardPool.push(this.cardInfo[id]);
       this.selected++;
-      console.log(this.selected);
+      console.log('id :>> ', id);
       if (
-        this.selected === 2 &&
-        this.matchedCards[0].name === this.matchedCards[1].name &&
-        this.matchedCards[0].id !== this.matchedCards[1].id
+        selectedTwoElement &&
+        cardPool[0].name === cardPool[1].name &&
+        cardPool[0].id !== cardPool[1].id
       ) {
         alert(`match`);
-        this.selected = 0;
-        this.matchedCards = [];
+        this.resetGame()
       }
       if (
-        this.selected === 2 &&
-        this.matchedCards[0].name !== this.matchedCards[1].name &&
-        this.matchedCards[0].id !== this.matchedCards[1].id
+        selectedTwoElement &&
+        cardPool[0].name !== cardPool[1].name &&
+        cardPool[0].id !== cardPool[1].id
       ) {
         alert(`not match`);
-        this.selected = 0;
-        this.matchedCards = [];
+        this.resetGame()
       }
     },
-  },
-  computed: {
-    ...mapState(["cardInfo", "gameInstruction"]),
-    ...mapGetters([""]),
-  },
-  mounted() {
-    function shuffle(array) {
+
+    resetGame() {
+      this.selected = 1;
+      this.matchedCards = [];
+    },
+
+    shuffle(array) {
       var currentIndex = array.length,
         temporaryValue,
         randomIndex;
@@ -86,7 +86,13 @@ export default {
 
       return array;
     }
-    this.randomCards = shuffle([...this.cardInfo]);
+  },
+  computed: {
+    ...mapState(["cardInfo", "gameInstruction"]),
+    ...mapGetters([""]),
+  },
+  mounted() {
+    this.randomCards = this.shuffle([...this.cardInfo]);
   },
 };
 </script>
