@@ -9,50 +9,62 @@ export default new Vuex.Store({
       {
         name: "bulbasaur",
         id: 1,
+        selected: false
       },
       {
         name: "charmander",
         id: 2,
+        selected: false
       },
       {
         name: "squirtle",
         id: 3,
+        selected: false
       },
       {
         name: "pikachu",
         id: 4,
+        selected: false
       },
       {
         name: "psyduck",
         id: 5,
+        selected: false
       },
       {
         name: "mew",
         id: 6,
+        selected: false
       },
       {
         name: "bulbasaur",
         id: 7,
+        selected: false
       },
       {
         name: "charmander",
         id: 8,
+        selected: false
       },
       {
         name: "squirtle",
         id: 9,
+        selected: false
       },
       {
         name: "pikachu",
         id: 10,
+        selected: false
       },
       {
         name: "psyduck",
         id: 11,
+        selected: false
       },
       {
         name: "mew",
         id: 12,
+        selected: false
       },
     ],
     gameInstruction: [

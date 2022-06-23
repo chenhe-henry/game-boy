@@ -8,16 +8,19 @@
           class="card"
           @click="selectCard(card.id)"
         >
-          <div>{{ card.name }}</div>
-          <img :src="getCardsUrl(card.name)" :alt="card.name" />
+          <span v-if="card.selected">
+            <div>{{ card.name }}</div>
+            <img :src="getCardsUrl(card.name)" :alt="card.name" />
+          </span>
+          <span v-else> </span>
         </div>
       </div>
     </div>
     <BaseIndicator>
-      <h1 slot="first">Game</h1>
-      <h1 slot="second">is</h1>
-      <h1 slot="third">coming</h1>
-      <h1 slot="fourth">soon</h1>
+      <h1 slot="first">Attempted</h1>
+      <h1 slot="second">{{attempted}}</h1>
+      <!-- <h1 slot="third">coming</h1>
+      <h1 slot="fourth">soon</h1> -->
     </BaseIndicator>
     <!--  <BaseInstruction
       ><ol>
@@ -36,42 +39,59 @@ export default {
     return {
       matchedCards: [],
       randomCards: [],
-      selected: 1,
+      selected: 0,
+      attempted: 0
     };
   },
   methods: {
     getCardsUrl(pic) {
       return require(`../assets/cardMatching/${pic}.png`);
     },
-    selectCard(id) {
-      let selectedTwoElement = this.selected === 2;
-      let cardPool = this.matchedCards
-      cardPool.push(this.cardInfo[id]);
-      this.selected++;
-      console.log('id :>> ', id);
-      if (
-        selectedTwoElement &&
-        cardPool[0].name === cardPool[1].name &&
-        cardPool[0].id !== cardPool[1].id
-      ) {
-        alert(`match`);
-        this.resetGame()
-      }
-      if (
-        selectedTwoElement &&
-        cardPool[0].name !== cardPool[1].name &&
-        cardPool[0].id !== cardPool[1].id
-      ) {
-        alert(`not match`);
-        this.resetGame()
+    async selectCard(id) {
+      if (!this.cardInfo[id - 1].selected) {
+        let cardPool = this.matchedCards;
+        cardPool.push(this.cardInfo[id - 1]);
+        await this.selected++;
+        this.randomCards.forEach(e => {
+          cardPool.forEach(el => {
+            if (e.id == el.id) {
+              e.selected = true;
+            }
+          });
+        });
+        if (
+          this.selected === 2 &&
+          cardPool[0].name === cardPool[1].name &&
+          cardPool[0].id !== cardPool[1].id
+        ) {
+          this.resetRandom();
+        }
+        if (
+          this.selected === 2 &&
+          cardPool[0].name !== cardPool[1].name &&
+          cardPool[0].id !== cardPool[1].id
+        ) {
+          this.attempted++
+          this.randomCards.forEach(e => {
+            cardPool.forEach(el => {
+              if (e.id == el.id) {
+                e.selected = false;
+              }
+            });
+          });
+          this.resetRandom();
+        }
       }
     },
-
-    resetGame() {
-      this.selected = 1;
+    resetRandom() {
+      this.selected = 0;
       this.matchedCards = [];
     },
-
+    resetGame() {
+      this.resetRandom();
+      this.randomCards = this.shuffle([...this.cardInfo]);
+      this.attempted = 0
+    },
     shuffle(array) {
       var currentIndex = array.length,
         temporaryValue,
@@ -90,10 +110,21 @@ export default {
   computed: {
     ...mapState(["cardInfo", "gameInstruction"]),
     ...mapGetters([""]),
+    canRest() {
+      return this.randomCards.every(e => e.selected === true);
+    }
+  },
+  watch: {
+    selected() {
+      if (this.selected % 2 === 0 && this.canRest) {
+        this.cardInfo.forEach(e => (e.selected = false));
+        this.resetGame();
+      }
+    }
   },
   mounted() {
-    this.randomCards = this.shuffle([...this.cardInfo]);
-  },
+    this.resetGame();
+  }
 };
 </script>
 
@@ -130,10 +161,10 @@ export default {
     width: 90%;
     margin: 0 auto;
   }
-  &:hover {
-    transform: rotateY(180deg);
+  // &:hover {
+  //   transform: rotateY(180deg);
 
-    perspective: 1000px;
-  }
+  //   perspective: 1000px;
+  // }
 }
 </style>
