@@ -72,7 +72,7 @@ export default {
           cardPool[0].id !== cardPool[1].id
         ) {
           this.attempted++
-          this.randomCards.forEach(e => {
+          setTimeout(()=>{this.randomCards.forEach(e => {
             cardPool.forEach(el => {
               if (e.id == el.id) {
                 e.selected = false;
@@ -80,6 +80,7 @@ export default {
             });
           });
           this.resetRandom();
+          },500)
         }
       }
     },
@@ -117,8 +118,10 @@ export default {
   watch: {
     selected() {
       if (this.selected % 2 === 0 && this.canRest) {
-        this.cardInfo.forEach(e => (e.selected = false));
-        this.resetGame();
+        setTimeout(()=>{
+          this.cardInfo.forEach(e => (e.selected = false));
+          this.resetGame();
+        }, 1000)
       }
     }
   },
