@@ -3,7 +3,8 @@
     <router-link to="/">Home</router-link>
     <router-link to="/rockpaperscissors">Rock Paper Scissors</router-link>
     <router-link to="/cardmatching">Card Matching</router-link>
-    <router-link to="/community" :user="user">Community</router-link>
+    <router-link to="/monsterslayer">Street Fighting</router-link>
+    <!-- <router-link to="/community" :user="user">Community</router-link>
     <router-link to="/login" v-if="!user">Login</router-link>
     <router-link to="/register" v-if="!user">Register</router-link>
     <router-link to="/dashboard" v-if="user">Dashboard</router-link>
@@ -11,7 +12,7 @@
       ><div v-if="user" @click="$emit('logout')" class="logout">
         Logout
       </div></router-link
-    >
+    > -->
   </div>
 </template>
 
@@ -23,10 +24,10 @@ export default { props: ["user"] };
 .navbar {
   background: black;
   display: grid;
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   @media (min-width: 1024px) {
     grid-template-rows: none;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
   a {
     font-size: 1.8rem;
