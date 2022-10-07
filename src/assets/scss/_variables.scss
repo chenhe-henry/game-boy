@@ -1,0 +1,14 @@
+// Color
+$bg-dark: hsl(0, 0%, 40%);
+$colors: mix(skyblue, limegreen, 80%); // mix use of scss
+$white: #ffffff;
+
+$typewriterSpeed: 6s;
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    flex: 0 0 (100% / (12 / $i));
+  }
+}
+[class^="showcase"] {
+  color: red;
+}
