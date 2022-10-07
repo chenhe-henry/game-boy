@@ -1,6 +1,6 @@
 <template>
   <BaseContainer class="gameRPS">
-    <div v-if="desiredRounds >= 1 && desiredRounds <= results.length">
+    <div v-if="gameOver">
       <h1>
         Game Over,
         <span v-if="youWin > AIWin">You win !</span>
@@ -8,11 +8,11 @@
         <span v-else>Draw !</span>
       </h1>
     </div>
-    <h1 v-else-if="desiredRounds === 0">Enter rounds to start the game.</h1>
-    <h1 v-else-if="desiredRounds > defaultMaximunRounds">
+    <h1 v-else-if="enterRound">Enter rounds to start the game.</h1>
+    <h1 v-else-if="overMaxRound">
       The maximum rounds is 5, re-enter the rounds to start.
     </h1>
-    <h1 v-else-if="desiredRounds !== 0 && !gameStarted">Ready to go</h1>
+    <h1 v-else-if="readyToStart">Ready to go</h1>
     <h1 v-else>Game is on</h1>
     <div class="gameRPS__theme">
       <label for="theme" class="gameRPS__theme-label">Theme:</label>
@@ -76,9 +76,7 @@
     <table class="result">
       <thead>
         <tr>
-          <th>Rounds</th>
-          <th>Player</th>
-          <th>AI</th>
+          <th v-for="th in tableHead" :key="th">{{ th }}</th>
         </tr>
       </thead>
       <tbody>
@@ -116,11 +114,16 @@ export default {
           ],
         },
       ],
+      gameOptions: [
+        { value: 0, label: "✊✋✌" },
+        { value: 1, label: "🐯🎋🐛" },
+      ],
       selectedItem: "",
       AISelection: "",
       results: [],
       youWin: 0,
       AIWin: 0,
+      tableHead: ["Rounds", "Player", "AI"],
     };
   },
   computed: {
@@ -133,6 +136,21 @@ export default {
       } else {
         return true;
       }
+    },
+
+    gameOver() {
+      return (
+        this.desiredRounds >= 1 && this.desiredRounds <= this.results.length
+      );
+    },
+    enterRound() {
+      return this.desiredRounds === 0;
+    },
+    overMaxRound() {
+      return this.desiredRounds > this.defaultMaximunRounds;
+    },
+    readyToStart() {
+      return this.desiredRounds !== 0 && !this.gameStarted;
     },
   },
   methods: {
