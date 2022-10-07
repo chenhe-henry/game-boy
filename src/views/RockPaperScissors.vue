@@ -1,5 +1,5 @@
 <template>
-  <div class="gameRPS">
+  <BaseContainer class="gameRPS">
     <div v-if="desiredRounds >= 1 && desiredRounds <= results.length">
       <h1>
         Game Over,
@@ -89,7 +89,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </BaseContainer>
 </template>
 
 <script>
@@ -168,18 +168,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/custom.scss";
 .gameRPS {
-  height: 100%;
-  @media (min-width: 1024px) {
-    height: 88vh;
-  }
-  border: 1px solid black;
-  border-radius: 10px;
-  background-color: white;
-  width: 50%;
-
-  margin: 10px auto;
-  box-shadow: 1.5em 1em 1em -0.5em;
   &__theme {
     font-size: 2rem;
     &-label {

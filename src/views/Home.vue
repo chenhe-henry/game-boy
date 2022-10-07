@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div>
-      <div v-if="user">
+      <!-- <div v-if="user">
         <h1>
           Welcome to the game station, {{ user.displayName }},
           <a href="#" role="button" @click="$emit('logout')">Logout</a>
@@ -14,7 +14,7 @@
             >Register</a
           >
         </h1>
-      </div>
+      </div> -->
       <div class="games__block">
         <router-link
           v-for="game in games"

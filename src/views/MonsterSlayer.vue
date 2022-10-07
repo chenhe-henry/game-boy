@@ -1,17 +1,26 @@
 <template>
-  <div class="fighting__block">
+  <BaseContainer>
     <div class="status">
       <section class="status__label">
         <h1>Player: {{ playerHealth }}</h1>
-        <h3 class="status__min-left" v-show="attackStart && playerMin !== 0">{{playerMin}}</h3>
+        <h3 class="status__min-left" v-show="attackStart && playerMin !== 0">
+          {{ playerMin }}
+        </h3>
       </section>
       <section class="status__label">
         <h1>VS</h1>
-        <h3 v-show="attackStart && (playerMin !== 0 || monsterMin !== 0)" class="hidden">VS</h3>
+        <h3
+          v-show="attackStart && (playerMin !== 0 || monsterMin !== 0)"
+          class="hidden"
+        >
+          VS
+        </h3>
       </section>
       <section class="status__label">
         <h1>Monster: {{ monsterHealth }}</h1>
-        <h3 class="status__min-right" v-show="attackStart && monsterMin !== 0">{{monsterMin}}</h3>
+        <h3 class="status__min-right" v-show="attackStart && monsterMin !== 0">
+          {{ monsterMin }}
+        </h3>
       </section>
     </div>
     <div class="btn-group">
@@ -22,7 +31,7 @@
     <div v-if="checkWin">
       <h1>Winner is {{ winner }}</h1>
     </div>
-  </div>
+  </BaseContainer>
 </template>
 
 <script>
@@ -46,7 +55,7 @@ export default {
       }, 1000);
     },
     attack() {
-      this.attackStart = true
+      this.attackStart = true;
       this.playerMin = -this.calculateDamage(3, 10);
       this.monsterMin = -this.calculateDamage(5, 12);
       this.playerHealth += this.playerMin;
@@ -58,7 +67,9 @@ export default {
         this.checkWin = true;
         this.winner = "Player";
       }
-      setTimeout(()=>{this.attackStart = false},2500)
+      setTimeout(() => {
+        this.attackStart = false;
+      }, 2500);
     },
     calculateDamage(min, max) {
       return Math.max(Math.floor(Math.random() * max) + 1, min);
@@ -77,13 +88,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fighting__block{
-  background: #fff;
-  width: 30vw;
-  height: 50vh;
-  margin: 0 auto;
-
-}
+@import "../assets/scss/custom.scss";
 .status {
   display: flex;
   justify-content: center;
@@ -93,21 +98,20 @@ export default {
     margin: 0 20px;
   }
   &__min {
-    &-left{
+    &-left {
       color: red;
       animation: dropMinLeft 3s 1 alternate;
     }
-    &-right{
+    &-right {
       color: red;
       animation: dropMinRight 3s 1 alternate;
     }
-    
   }
 }
-.hidden{
+.hidden {
   visibility: hidden;
 }
-.btn-group{
+.btn-group {
   position: fixed;
   bottom: 50%;
   left: 50%;
