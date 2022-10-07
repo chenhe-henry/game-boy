@@ -135,10 +135,8 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/scss/custom.scss";
 .btn__block {
-  display: grid;
+  @extend %center-grid;
   grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
-  align-content: center;
 }
 .card {
   border: 1px solid black;

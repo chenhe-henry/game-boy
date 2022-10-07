@@ -3,7 +3,10 @@
     <div class="status">
       <section class="status__label">
         <h1>Player: {{ playerHealth }}</h1>
-        <h3 class="status__min-left" v-show="attackStart && playerMin !== 0">
+        <h3
+          class="status__min status__min-left"
+          v-show="attackStart && playerMin !== 0"
+        >
           {{ playerMin }}
         </h3>
       </section>
@@ -18,7 +21,10 @@
       </section>
       <section class="status__label">
         <h1>Monster: {{ monsterHealth }}</h1>
-        <h3 class="status__min-right" v-show="attackStart && monsterMin !== 0">
+        <h3
+          class="status__min status__min-right"
+          v-show="attackStart && monsterMin !== 0"
+        >
           {{ monsterMin }}
         </h3>
       </section>
@@ -90,20 +96,17 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/scss/custom.scss";
 .status {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @extend %center-flex;
   padding: 20px;
   &__label {
     margin: 0 20px;
   }
   &__min {
+    color: red;
     &-left {
-      color: red;
       animation: dropMinLeft 3s 1 alternate;
     }
     &-right {
-      color: red;
       animation: dropMinRight 3s 1 alternate;
     }
   }
