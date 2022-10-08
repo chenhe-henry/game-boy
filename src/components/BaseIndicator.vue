@@ -12,10 +12,10 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/custom.scss";
 .baseIndicator {
   position: absolute;
-  border: 1px solid black;
-  border-radius: 5px;
+  @extend %border;
   background-color: white;
   top: 20vh;
   right: 2vw;

@@ -2,8 +2,11 @@
 $bg-dark: hsl(0, 0%, 40%);
 $colors: mix(skyblue, limegreen, 80%); // mix use of scss
 $white: #ffffff;
-
+$black: #000000;
 $typewriterSpeed: 6s;
+
+//
+$mid-radius: 10px;
 @for $i from 1 through 12 {
   .col-#{$i} {
     flex: 0 0 (100% / (12 / $i));
