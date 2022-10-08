@@ -3,9 +3,8 @@
   @media (min-width: 1024px) {
     height: 88vh;
   }
-  border: 1px solid black;
-  border-radius: 10px;
-  background-color: white;
+  @extend %border;
+  background-color: $white;
   width: 50%;
   margin: 10px auto;
 }

@@ -88,6 +88,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/custom.scss";
 .tab {
   margin: 20px;
   border-radius: 5px;
@@ -103,8 +104,7 @@ export default {
   &__feedback {
     margin: 20px;
     padding: 20px;
-    border: 1px solid black;
-    border-radius: 5px;
+    @extend %border;
     background-color: white;
     font-weight: bold;
   }

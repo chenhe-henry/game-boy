@@ -139,8 +139,7 @@ export default {
   grid-template-columns: repeat(4, 1fr);
 }
 .card {
-  border: 1px solid black;
-  border-radius: 5px;
+  @extend %border;
   box-shadow: 0.5em 0.5em 0.5em -0.5em;
   height: 24vh;
   width: 10vw;
@@ -155,10 +154,5 @@ export default {
     width: 90%;
     margin: 0 auto;
   }
-  // &:hover {
-  //   transform: rotateY(180deg);
-
-  //   perspective: 1000px;
-  // }
 }
 </style>

@@ -53,6 +53,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/custom.scss";
 .games__block {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
@@ -69,8 +70,7 @@ export default {
     color: black;
     text-decoration: none;
     font-weight: bold;
-    border: 1px solid black;
-    border-radius: 15px;
+    @extend %border;
     justify-content: center;
     align-items: center;
     background-color: white;
